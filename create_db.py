@@ -12,8 +12,9 @@ ATTENZIONE: eseguendo il seguente modulo, il database al quale si è connessi ve
 verranno eliminati 
 
 """
-uri = "bolt://localhost:7687"
-driver = GraphDatabase.driver(uri)
+uri = "neo4j+s://44abdaa3.databases.neo4j.io"
+AUTH = ("neo4j", "k9W9xJ-oq7yb9SdzY8cuzo52snNHhuhLdqQAOGJA54Q")
+driver = GraphDatabase.driver(uri, auth=AUTH)
 
 faker = Faker()
 Faker.seed(0)
@@ -21,7 +22,7 @@ Faker.seed(0)
 def reset_database(tx):
     tx.run("MATCH (n) DETACH DELETE n")
 
-#funzione per generare un punto geojson entro un raggio di 20 km
+# funzione per generare un punto geojson entro un raggio di 20 km
 def generate_geojson_point(center_lat, center_lon, radius_km):
     radius_deg = radius_km / 111  # Convert km to degrees (approx)
     angle = random.uniform(0, 2 * math.pi)
@@ -30,7 +31,7 @@ def generate_geojson_point(center_lat, center_lon, radius_km):
     lon = center_lon + distance * math.sin(angle)
     return json.dumps({"type": "Point", "coordinates": [lon, lat]})
 
-
+ 
 def create_data(tx, num_persons):
     center_lat, center_lon = 45.4642, 9.19  # Coordinate di Milano come centro
     start_date = datetime(2024, 1, 1)
@@ -56,9 +57,14 @@ def create_data(tx, num_persons):
                "CREATE (n)-[:CONNESSO_A {data: $data, orario: $orario}]->(c)",
                numero=phone_number, nome=cell_name, data=date, orario=time)
 
+"""
 with driver.session() as session:
     #ATTENZIONE: il database verrà resettato
     session.write_transaction(reset_database)  # Reset del database
     session.write_transaction(create_data, 10)  # Sostituisci 10 con il numero di persone desiderate
 
 driver.close()
+"""
+
+
+        
