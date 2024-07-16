@@ -17,3 +17,17 @@ def get_person_location (driver, person_name, date, time):
             }
         else:
             return None
+
+def cell_localization(driver): 
+
+    # input di ricerca
+    person_name = input("Inserisci il nome del sospettato: ") 
+    date = input("Inserisci la data: ") 
+    time = input("Inserisci l'orario: ") 
+    
+    # utilizzo funzione di ricerca
+    location = get_person_location(driver, person_name, date, time)
+    if location:
+        print(f"\nIl sospettato: {person_name}\nera collegato alle ore: {time}\nin data: {date}\nalla cella: {location['cell_name']}\ncon posizione: {location['cell_location']}\n")
+    else:
+        print(f"\nNessuna connessione trovata per {person_name} alla data e all'ora specificate\n")
