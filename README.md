@@ -25,22 +25,27 @@ Creazione di un metodo di ricerca tramite query che vada a soddisfare le richies
     - pip install math
 
 4.**Creare l'instance**
-   - Andare su neo4j aura e creare un'instance e salvarsi uri e password
+   1. Accedere a questo URL: https://neo4j.com/cloud/platform/aura-graph-database/
+   2. Premere sul tasto "Start Free"
+   3. Cliccare su "New Instance", che vi fornirà le credenziali necessarie
+   4. Dopodichè aprire l'instnza creata
 
 5. **Inserire Credenziali**
 
-   - Aprire il file "utilities.py", nella funzione connect_to_db il proprio uri e in AUTH lo         user e la password che sono      stati creati alla creazione dell'istance su neo4j aura.
+   # ATTENZIONE: dovete avere le credenziali che vi ha fatto scaricare durante la creazione dell'instanza per i prossimi passaggi
 
-   - Inserire nel file "create_db.py" l'uri presente con quello della propria instance creata.
+   - Aprire il modulo "utilities.py", nella funzione 'connect_to_db' sostituire l'uri e l'AUTH presenti con quelli che vi hanno       fatto scaricare alla creazione dell'istanza.
+
+   - Nel modulo "create_db.py" sostituire l'uri presente con quello della propria instance creata.
   
-   - Inserire nel file "main.py" l'uri presente con quello della propria instance creata e in        AUTH lo user e la password.
+   - Nel modulo "main.py" sostituire l'uri presente con quello della propria instanza e in AUTH lo user e la password.
 
-6. **Creazione DataBase**
-   - Avviare il file "create_db.py" per la creazione del database con i vari nodi: persone,     
-     Numeri di Telefono(NTel), celle, i punti geografici e le relazioni.
+7. **Creazione DataBase**
+   - Avviare il file "create_db.py" per la creazione del database con i vari nodi: Persone,     
+     Sim, Celle, i punti geografici e le relazioni.
 
-7. **Avviare la ricerca**
-   - Aprire il file "main.py" e avviarlo per poter usare il menù di ricerca dei sospettati.
+8. **Avviare la ricerca**
+   - Aprire il modulo "main.py" e avviarlo per poter usare il menù di ricerca dei sospettati.
    
 
    
