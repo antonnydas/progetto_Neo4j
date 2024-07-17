@@ -4,8 +4,8 @@ from datetime import datetime
 import platform
 
 def connect_to_db():
-    uri = "bolt://localhost:7687"
-    AUTH = ("neo4j", "password")
+    uri = "neo4j+s://21d203cb.databases.neo4j.io"
+    AUTH = ("neo4j", "nzbCTet_44-TGPjZEAvvSmjjORptwBCkT-fbtKiYAwU")
     driver = GraphDatabase.driver(uri, auth=AUTH)
     return driver
 
