@@ -48,12 +48,7 @@ def create_directory(path):
     if not os.path.exists(path):
         os.makedirs(path) #Funzione di utility per la creazione di directory nella WD
 
-#Test
-if __name__ == "__main__":
-    person_name = "Brandon Lloyd"
-    start_date = "2024-07-18T00:00:00"
-    end_date = "2024-07-21T14:00:00"
-
+def return_results(person_name, start_date, end_date):
     results = primo_requisito_query(driver, person_name, start_date, end_date)
     
     df = create_dataframe(results)
