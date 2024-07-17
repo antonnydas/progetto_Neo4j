@@ -46,7 +46,7 @@ def create_dataframe(results):
     df = pd.DataFrame(all_data)
     return df
 
-def return_results(latitude, longitude, radius, start_date, end_date):
+def return_results_three(latitude, longitude, radius, start_date, end_date):
     results = terzo_requisito_query(driver, latitude, longitude, radius, start_date, end_date)
 
     df = create_dataframe(results)
@@ -73,6 +73,6 @@ if __name__ == "__main__":
     start_date = "2024-07-1T00:00:00"
     end_date = "2024-07-19T00:00:10"
 
-    return_results(latitude, longitude, radius, start_date, end_date)
+    return_results_three(latitude, longitude, radius, start_date, end_date)
 
     driver.close()

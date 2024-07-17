@@ -40,7 +40,7 @@ def create_dataframe(results):
     df = pd.DataFrame(all_data)
     return df
 
-def return_results(cell_name, start_date, end_date):
+def return_results_two(cell_name, start_date, end_date):
     results = secondo_requisito_query(driver, cell_name, start_date, end_date)
     
     df = create_dataframe(results)
@@ -65,4 +65,4 @@ def return_results(cell_name, start_date, end_date):
 
 if __name__ == '__main__':
 
-    return_results("cell958", "2024-07-18", "2024-08-18")
+    return_results_two("cell958", "2024-07-18", "2024-08-18")

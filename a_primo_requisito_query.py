@@ -39,7 +39,7 @@ def create_dataframe(results):
     df = pd.DataFrame(all_data) #Converto il tutto in un dataframe
     return df
 
-def return_results(person_name, start_date, end_date):
+def return_results_one(person_name, start_date, end_date):
     results = primo_requisito_query(driver, person_name, start_date, end_date)
     
     df = create_dataframe(results)
@@ -65,4 +65,4 @@ def return_results(person_name, start_date, end_date):
 
 if __name__ == '__main__':
 
-    return_results("Norma Fisher", "2024-07-18", "2024-08-18")
+    return_results_one("Norma Fisher", "2024-07-18", "2024-08-18")
