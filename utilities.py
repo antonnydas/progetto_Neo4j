@@ -1,6 +1,7 @@
 from neo4j import GraphDatabase
 import os
 from datetime import datetime
+import platform
 
 def connect_to_db():
     uri = "bolt://localhost:7687"
@@ -9,8 +10,12 @@ def connect_to_db():
     return driver
 
 def format_date(date_str):
-    neo4j_date = datetime.fromisoformat(date_str)
-    return neo4j_date.strftime("%Y-%m-%d %H:%M")
+    if platform.system() == "Windows":
+        neo4j_date = datetime.fromisoformat(date_str)
+        return neo4j_date.strftime("%Y-%m-%d %H:%M")
+    else:
+        return date_str.strftime("%Y-%m-%d %H:%M")
+
 
 
 def create_directory(path):
