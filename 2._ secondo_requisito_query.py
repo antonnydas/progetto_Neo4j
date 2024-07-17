@@ -52,7 +52,9 @@ def return_results(cell_name, start_date, end_date):
     
     tabulati_cella_date_dir = os.path.join(tabulati_dir, "tabulati_cella_date")
     create_directory(tabulati_cella_date_dir)
-    
+
+    start_date = start_date.replace(':', '-')
+    end_date = end_date.replace(':', '-')
     csv_filename = f"{cell_name}_{start_date}_{end_date}_people.csv"
     csv_path = os.path.join(tabulati_cella_date_dir, csv_filename)
     

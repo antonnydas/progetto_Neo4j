@@ -12,13 +12,13 @@ def primo_requisito_query(driver, person_name, start_date, end_date):
     query = """
     MATCH (c:Cella)<-[r:CONNESSO_A]-(s:Sim)-[:POSSEDUTO_DA]->(p:Persona {nome: $person_name}) 
     WITH c, s, r, 
-         [date IN r.dates WHERE datetime($start_date) <= datetime(date) <= datetime($end_date)] AS filtered_dates //Filtra tutte le date che risultano all'interno del range
-    WHERE size(filtered_dates) > 0 //Check per assicurarsi che si prendano solo le relazioni che hanno effettivamente una data all'interno del range definito
-    RETURN c, s, filtered_dates AS dates //Vengono date in output le celle, le sim e le date e orari di connessione delle sim a queste celle
+         [date IN r.dates WHERE datetime($start_date) <= datetime(date) <= datetime($end_date)] AS filtered_dates
+    WHERE size(filtered_dates) > 0
+    RETURN c, s, filtered_dates AS dates
     """
     with driver.session() as session:
-        result = session.run(query, person_name=person_name, start_date=start_date, end_date=end_date) #Viene fatta partire la query 
-        return [(record["c"], record["s"], record["dates"]) for record in result] #Vengono estratti i dati che ci interessano dai results 
+        result = session.run(query, person_name=person_name, start_date=start_date, end_date=end_date)
+        return [(record["c"], record["s"], record["dates"]) for record in result]
 
 def create_dataframe(results):
     datas = defaultdict(list)
@@ -52,11 +52,15 @@ def return_results(person_name, start_date, end_date):
     tabulati_persona_date_dir = os.path.join(tabulati_dir, "tabulati_persona_date")
     create_directory(tabulati_persona_date_dir)
     
+    start_date= start_date.replace(':', '-')
+    end_date = end_date.replace(':', '-')
     csv_filename = f"{person_name}_{start_date}_{end_date}_connections.csv"
     csv_path = os.path.join(tabulati_persona_date_dir, csv_filename)
-    
+
     df.to_csv(csv_path, index=False) #Dopo aver creato la path, salvo il dataframe come CSV
     print(f"\nFile CSV '{csv_filename}' creato nella directory: {tabulati_persona_date_dir}")
 
         
     driver.close()
+
+print(return_results("Norma Fisher", "2024-07-18", "2024-08-18"))
