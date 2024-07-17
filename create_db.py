@@ -31,7 +31,7 @@ def generate_geojson_point(center_lat, center_lon, radius_km):
     lon = center_lon + distance * math.sin(angle)
     return json.dumps({"type": "Point", "coordinates": [lon, lat]})
 
- 
+
 def create_data(tx, num_persons):
     center_lat, center_lon = 45.4642, 9.19  # Coordinate di Milano come centro
     start_date = datetime(2024, 1, 1)
@@ -57,14 +57,11 @@ def create_data(tx, num_persons):
                "CREATE (n)-[:CONNESSO_A {data: $data, orario: $orario}]->(c)",
                numero=phone_number, nome=cell_name, data=date, orario=time)
 
-"""
-with driver.session() as session:
+#with driver.session() as session:
     #ATTENZIONE: il database verrà resettato
-    session.write_transaction(reset_database)  # Reset del database
-    session.write_transaction(create_data, 10)  # Sostituisci 10 con il numero di persone desiderate
+#    session.write_transaction(reset_database)  # Reset del database
+#    session.write_transaction(create_data, 10)  # Sostituisci 10 con il numero di persone desiderate
 
-driver.close()
-"""
+#driver.close()
 
 
-        
