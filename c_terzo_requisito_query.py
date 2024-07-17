@@ -9,12 +9,15 @@ from utilities import *
 driver = connect_to_db()
 
 def terzo_requisito_query(driver, latitude, longitude, radius, start_datetime, end_datetime):
+    latitude = float(latitude)
+    longitude = float(longitude)
+    radius = float(radius)
     query = """
     MATCH (s:Sim)-[r:CONNESSO_A]->(c:Cella)
     WHERE point.distance(point({latitude: $latitude, longitude: $longitude}), c.posizione) <= $radius*1000
-    AND any(date IN r.dates WHERE datetime(date) >= datetime($start_datetime) AND datetime(date) <= datetime($end_datetime))
     WITH s, r, c,
-    [date IN r.dates WHERE datetime(date) >= datetime($start_datetime) AND datetime(date) <= datetime($end_datetime)] AS filtered_dates
+    [date IN r.dates WHERE datetime($start_datetime) <= datetime(date) <= datetime($end_datetime)] AS filtered_dates
+    WHERE size(filtered_dates) > 0
     MATCH (s)-[:POSSEDUTO_DA]->(p:Persona)
     RETURN c, s, p, filtered_dates AS dates
     """

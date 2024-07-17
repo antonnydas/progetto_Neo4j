@@ -3,10 +3,9 @@ from neo4j import GraphDatabase
 from faker import Faker
 import random
 import math
+from utilities import connect_to_db
 
-uri = "neo4j+s://21d203cb.databases.neo4j.io"
-AUTH = ("neo4j", "nzbCTet_44-TGPjZEAvvSmjjORptwBCkT-fbtKiYAwU")
-driver = GraphDatabase.driver(uri, auth=AUTH)
+driver = connect_to_db()
 
 random.seed(0)
 faker = Faker()
@@ -94,6 +93,6 @@ def create_data(tx, num_persons, num_cells, start_date = datetime(2024, 7, 18), 
             
 with driver.session() as session: #Resetto il database e lo genero di nuovo
     session.execute_write(reset_database)
-    session.execute_write(create_data, 15, 10)
+    session.execute_write(create_data, 15, 8)
 
 driver.close()
