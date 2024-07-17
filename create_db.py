@@ -5,8 +5,8 @@ import random
 import math
 
 uri = "bolt://localhost:7687"
-AUTH = ("neo4j", "password")
-driver = GraphDatabase.driver(uri, auth=AUTH)
+
+driver = GraphDatabase.driver(uri)
 
 faker = Faker()
 Faker.seed(0)
@@ -80,7 +80,7 @@ def create_data(tx, num_persons, num_cells, start_date = datetime(2024, 7, 18), 
                     cell_connections.append((phone_number, cella_vicina_nome, sim_location))
 
             for phone_number, cell_name, phone_location in cell_connections:
-                formatted_date = current_date.strftime("%Y-%m-%d %H:%M")  #Formatto la data in modo da renderla più leggibile
+                formatted_date = current_date.strftime("%Y-%m-%dT%H:%M:%S") #Formatto la data in modo da renderla più leggibile
                 tx.run("MATCH (n:Sim {numeroTelefono: $numero}), (c:Cella {nome: $nome}) "  # Matcho il numero di telefono interessato e la cella
                     "MERGE (n)-[r:CONNESSO_A]->(c) "  # Uso MERGE invece di CREATE per evitare di rendere ridondanti i grafi: se una relazione già esiste tra i due nodi, si terrà quella già presente.
                     "ON CREATE SET r.dates = [$data], r.posizione = [point({latitude: $lat, longitude: $lon})] " #Se dal MERGE risulta che la relazione non esiste
