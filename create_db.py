@@ -7,7 +7,7 @@ import math
 uri = "bolt://localhost:7687"
 
 driver = GraphDatabase.driver(uri)
-
+random.seed(0)
 faker = Faker()
 Faker.seed(0)
 
