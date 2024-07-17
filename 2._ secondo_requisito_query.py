@@ -63,4 +63,6 @@ def return_results(cell_name, start_date, end_date):
 
     driver.close()
 
-return_results("cell440", "2024-07-19T19:00:00", "2024-07-21T19:00:01")
+if __name__ == '__main__':
+
+    return_results("cell958", "2024-07-18", "2024-08-18")

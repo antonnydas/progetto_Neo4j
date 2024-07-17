@@ -12,9 +12,9 @@ def primo_requisito_query(driver, person_name, start_date, end_date):
     query = """
     MATCH (c:Cella)<-[r:CONNESSO_A]-(s:Sim)-[:POSSEDUTO_DA]->(p:Persona {nome: $person_name}) 
     WITH c, s, r, 
-         [date IN r.dates WHERE datetime($start_date) <= datetime(date) <= datetime($end_date)] AS filtered_dates
-    WHERE size(filtered_dates) > 0
-    RETURN c, s, filtered_dates AS dates
+         [date IN r.dates WHERE datetime($start_date) <= datetime(date) <= datetime($end_date)] AS filtered_dates //Filtra tutte le date che risultano all'interno del range
+    WHERE size(filtered_dates) > 0 //Check per assicurarsi che si prendano solo le relazioni che hanno effettivamente una data all'interno del range definito
+    RETURN c, s, filtered_dates AS dates //Vengono date in output le celle, le sim e le date e orari di connessione delle sim a queste celle
     """
     with driver.session() as session:
         result = session.run(query, person_name=person_name, start_date=start_date, end_date=end_date)
@@ -63,4 +63,6 @@ def return_results(person_name, start_date, end_date):
         
     driver.close()
 
-print(return_results("Norma Fisher", "2024-07-18", "2024-08-18"))
+if __name__ == '__main__':
+
+    return_results("Norma Fisher", "2024-07-18", "2024-08-18")
