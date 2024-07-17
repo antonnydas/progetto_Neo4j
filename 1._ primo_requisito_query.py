@@ -4,11 +4,9 @@ from datetime import datetime
 import pandas as pd
 from tabulate import tabulate
 from collections import defaultdict
+from utilities import *
 
-# Neo4j connection details
-uri = "bolt://localhost:7687"
-AUTH = ("neo4j", "password")
-driver = GraphDatabase.driver(uri, auth=AUTH)
+driver = connect_to_db()
 
 def primo_requisito_query(driver, person_name, start_date, end_date):
     query = """
@@ -21,9 +19,6 @@ def primo_requisito_query(driver, person_name, start_date, end_date):
     with driver.session() as session:
         result = session.run(query, person_name=person_name, start_date=start_date, end_date=end_date) #Viene fatta partire la query 
         return [(record["c"], record["s"], record["dates"]) for record in result] #Vengono estratti i dati che ci interessano dai results 
-
-def format_date(neo4j_date):
-    return neo4j_date.strftime("%Y-%m-%d %H:%M") #Funzione di utility per rendere più comprensibile il formato data
 
 def create_dataframe(results):
     datas = defaultdict(list)
@@ -43,10 +38,6 @@ def create_dataframe(results):
     
     df = pd.DataFrame(all_data) #Converto il tutto in un dataframe
     return df
-
-def create_directory(path):
-    if not os.path.exists(path):
-        os.makedirs(path) #Funzione di utility per la creazione di directory nella WD
 
 def return_results(person_name, start_date, end_date):
     results = primo_requisito_query(driver, person_name, start_date, end_date)
