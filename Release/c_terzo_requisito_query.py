@@ -61,7 +61,8 @@ def return_results_three(latitude, longitude, radius, start_date, end_date):
 
     tabulati_coordinate_date_dir = os.path.join(tabulati_dir, "tabulati_coordinate_date")
     create_directory(tabulati_coordinate_date_dir)
-
+    start_date= start_date.replace(':', '-')
+    end_date = end_date.replace(':', '-')
     csv_filename = f"{latitude}_{longitude}_{radius}_{start_date}_{end_date}_people.csv"
     csv_path = os.path.join(tabulati_coordinate_date_dir, csv_filename)
 
